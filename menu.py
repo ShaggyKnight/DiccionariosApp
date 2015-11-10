@@ -42,7 +42,7 @@ def printMenu(menu):
                 length = modules.readInt()
             print("Se inicia el proceso de escritura en archivo......... \n")
             print(100 * '-', end='\n')
-            modules.writeFile(nombre, 4)
+            modules.writeFile(nombre, 7)
             print("Se ha finalizado el proceso, Enjoi :D", end='\n')
             print(100 * '-', end='\n')
             print("")

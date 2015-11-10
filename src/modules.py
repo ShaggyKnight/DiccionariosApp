@@ -33,6 +33,7 @@ def writeFile(name, lenght):
     file = open(name + ".lst", 'w')
     for value in combinaciones(lenght):
         # calcular y concatenar digito verificador y agregar ceros
+        value = concatenarDigito(value)
         file.write('{0}\n'.format(''.join(map(str, value))))
     file.close()
 
@@ -52,3 +53,48 @@ def readInt():
             intentos += 1
             print("ATENCIÓN: Debe ingresar un número entero")
     raise (ValueError, "Valor incorrecto despues de 5 intentos")
+
+
+def concatenarDigito(tuple):
+    '''
+    Concatena el digito verificador a una tupla
+    :param tuple: tupla de comniantoria de numeros
+    :return: tupla concatenada
+    '''
+    return tuple + (calculaDigito(number(tuple)),)
+
+
+def number(numero):
+    '''
+    Concatena numeros en una lista, toma numeros, tuplas, listas, etc
+    :param numero:
+    :return: lista de numeros
+    '''
+    num = []
+    for value in numero:
+        num.append(value)
+    return num
+
+
+def calculaDigito(rut):
+    '''
+    Calcula el digito verificador de un rut dado.
+    :param rut: representa un rut
+    :return: digito verificador
+    '''
+    rut.reverse()
+    recorrido = 2
+    multiplicar = 0
+    for x in rut:
+        multiplicar += int(x) * recorrido
+        if recorrido == 7: recorrido = 1
+        recorrido += 1
+    modulo = multiplicar % 11
+    resultado = 11 - modulo
+    if resultado == 11:
+        digito = 0
+    elif resultado == 10:
+        digito = "K"
+    else:
+        digito = resultado
+    return digito
